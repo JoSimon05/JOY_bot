@@ -1,0 +1,23 @@
+{
+  "name": "joy-bot",
+  "version": "1.14.0",
+  "description": "JOY v14",
+  "author": "Jo",
+  "license": "UNLICENSED",
+  "main": "main.js",
+  "scripts": {
+    "test": "SET NODE_ENV=production & node ."
+  },
+  "dependencies": {
+    "@discordjs/opus": "^0.9.0",
+    "@discordjs/voice": "^0.16.1",
+    "@distube/soundcloud": "^1.3.3",
+    "@distube/spotify": "^1.5.1",
+    "@distube/ytsr": "^1.2.5",
+    "@randomorg/core": "^1.1.1",
+    "discord.js": "^14.15.2",
+    "distube": "^4.1.1",
+    "libsodium-wrappers": "^0.7.13",
+    "opusscript": "^0.0.8"
+  }
+}
