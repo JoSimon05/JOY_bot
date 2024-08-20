@@ -7,15 +7,17 @@ const isDev = process.env.NODE_ENV === "development"
 
 
 // client configuration
-const bot = new Client({ intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.GuildVoiceStates,
-    GatewayIntentBits.MessageContent
-    //...
-]})
+const bot = new Client({
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildVoiceStates,
+        GatewayIntentBits.MessageContent
+        //...
+    ]
+})
 
-
+/*
 // DisTube configuration
 const DisTube = require("distube").default
 const { SpotifyPlugin } = require("@distube/spotify")
@@ -50,7 +52,7 @@ bot.distube.on("addSong", (queue, song) => {
 bot.distube.on("searchNoResult", (interaction) => {
     interaction.send("Brano non trovato")
 })
-
+*/
 
 // files handling
 bot.commands = new Collection()
