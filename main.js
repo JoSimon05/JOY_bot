@@ -1,9 +1,17 @@
 
 const { ActivityType, Client, Collection, GatewayIntentBits } = require("discord.js")
+const { DisTube, Events } = require("distube")
+const { YouTubePlugin } = require("@distube/youtube")
+const { SoundCloudPlugin } = require("@distube/soundcloud")
+const { SpotifyPlugin } = require("@distube/spotify")
+const { YtDlpPlugin } = require("@distube/yt-dlp")
 const { botToken } = require("./config.json")
 const fs = require("fs")
 
 const isDev = process.env.NODE_ENV === "development"
+
+process.env.YTSR_NO_UPDATE = "1";
+process.env.YTDL_NO_UPDATE = "1";
 
 
 // client configuration
@@ -13,46 +21,40 @@ const bot = new Client({
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.GuildVoiceStates,
         GatewayIntentBits.MessageContent
-        //...
     ]
 })
 
-/*
 // DisTube configuration
-const DisTube = require("distube").default
-const { SpotifyPlugin } = require("@distube/spotify")
-const { SoundCloudPlugin } = require("@distube/soundcloud")
-
-bot.distube = new DisTube(bot, {
-    plugins: [new SpotifyPlugin(), new SoundCloudPlugin()],
-    leaveOnEmpty: true,
-    emptyCooldown: 0,
-    leaveOnStop: false,
-    savePreviousSongs: true
+const distube = new DisTube(bot, {
+    savePreviousSongs: true,
+    plugins: [
+        new YouTubePlugin(),
+        new SoundCloudPlugin(),
+        new SpotifyPlugin(),
+        new YtDlpPlugin()
+    ]
 })
 
-bot.distube.on("error", (channel, error) => {
-    console.log(`DisTube error: ${error}`)
-    channel.send({ content: `Errore: ${error}` })
-})
-
-bot.distube.on("playSong", (queue, song) => {
+distube.on(Events.PLAY_SONG, (queue, song) => {
     queue.textChannel.send({ content: `In riproduzione: **${song.name}**` })
 })
 
-bot.distube.on("addSong", (queue, song) => {
+distube.on(Events.ADD_SONG, (queue, song) => {
 
-    const getQueue = bot.distube.getQueue(queue)
+    const getQueue = distube.getQueue(queue)
 
     if (getQueue.autoplay || getQueue.songs.length > 1) {
         queue.textChannel.send({ content: `Aggiunta alla coda: **${song.name}**` })
     }
 })
 
-bot.distube.on("searchNoResult", (interaction) => {
-    interaction.send("Brano non trovato")
+distube.on(Events.ERROR, (error, queue) => {
+    console.log(`DisTube error: ${error}`)
+    queue.textChannel.send({ content: `Errore: ${error.name}` })
 })
-*/
+
+distube.on(Events.FFMPEG_DEBUG, (debug) => console.log(debug))
+
 
 // files handling
 bot.commands = new Collection()
@@ -114,7 +116,7 @@ bot.on("interactionCreate", async (interaction) => {
 
         const command = bot.commands.get(interaction.commandName)
 
-        command.execute(interaction, bot)
+        command.execute(interaction, bot, distube)
     }
 })
 

@@ -9,7 +9,15 @@
     "test": "SET NODE_ENV=production & node ."
   },
   "dependencies": {
+    "@discordjs/voice": "^0.17.0",
+    "@distube/soundcloud": "^2.0.3",
+    "@distube/spotify": "^2.0.2",
+    "@distube/youtube": "^1.0.4",
+    "@distube/yt-dlp": "^2.0.1",
     "@randomorg/core": "^1.1.1",
-    "discord.js": "^14.15.3"
+    "discord.js": "^14.15.3",
+    "distube": "^5.0.2",
+    "opusscript": "^0.1.1",
+    "sodium-native": "^4.1.1"
   }
 }

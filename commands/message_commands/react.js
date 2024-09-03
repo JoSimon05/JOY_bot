@@ -103,7 +103,7 @@ module.exports = {
                 break
 
             case "gg":
-                message.react("") //TODO aggiungi emoji
+                message.react("💪")
                 break
 
             case "grazie":
@@ -116,6 +116,10 @@ module.exports = {
 
             case "idea":
                 message.react("💡")
+                break
+
+            case "lol":
+                message.react("") //TODO
                 break
 
             case "male":
@@ -194,6 +198,8 @@ module.exports = {
 
             case "scemo":
             case "scema":
+            case "popipopi":
+            case "popi popi":
                 message.react("🤡")
                 break
 
@@ -237,13 +243,14 @@ module.exports = {
             case "...":
             case "....":
             case "....":
-                message.react("😶") //pokerface
+                message.react("😶")
                 break
 
-
-            case "AGGIUNGI":
+/*
+            case "":
                 message.react("")
                 break
+*/
         }
     }
 }
